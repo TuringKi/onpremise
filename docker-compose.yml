@@ -92,7 +92,7 @@ x-snuba-defaults: &snuba_defaults
 services:
   smtp:
     <<: *restart_policy
-    image: tianon/exim4
+    image: vita7/exim4
     hostname: ${SENTRY_MAIL_HOST:-}
     volumes:
       - "sentry-smtp:/var/spool/exim4"
@@ -144,7 +144,7 @@ services:
         target: /opt/sentry/
   zookeeper:
     <<: *restart_policy
-    image: "confluentinc/cp-zookeeper:5.5.0"
+    image: "watershine/cp-zookeeper:6.1.0-arm64"
     environment:
       ZOOKEEPER_CLIENT_PORT: "2181"
       CONFLUENT_SUPPORT_METRICS_ENABLE: "false"
@@ -158,13 +158,13 @@ services:
     healthcheck:
       <<: *healthcheck_defaults
       test:
-        ["CMD-SHELL", 'echo "ruok" | nc -w 2 -q 2 localhost 2181 | grep imok']
+        ["CMD-SHELL", 'echo "ruok" | nc -w 2 localhost 2181 | grep imok']
   kafka:
     <<: *restart_policy
     depends_on:
       zookeeper:
         <<: *depends_on-healthy
-    image: "confluentinc/cp-kafka:5.5.0"
+    image: "watershine/cp-kafka:6.1.0-arm64"
     environment:
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
       KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:9092"
@@ -186,7 +186,7 @@ services:
       test: ["CMD-SHELL", "nc -z localhost 9092"]
   clickhouse:
     <<: *restart_policy
-    image: "yandex/clickhouse-server:20.3.9.70"
+    image: "lunalabsltd/clickhouse-server:20.6.7.4-arm"
     ulimits:
       nofile:
         soft: 262144
