@@ -7,4 +7,5 @@
     <merge_tree>
         <enable_mixed_granularity_parts>1</enable_mixed_granularity_parts>
     </merge_tree>
+    <listen_host>0.0.0.0</listen_host>
 </yandex>
