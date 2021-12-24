@@ -1,3 +1,5 @@
+# This forked version can be deployed on huawei arm64 cloud server.
+
 # Self-Hosted Sentry nightly
 
 Official bootstrap for running your own [Sentry](https://sentry.io/) with [Docker](https://www.docker.com/).
