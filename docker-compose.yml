@@ -113,7 +113,7 @@ services:
     command: redis-server /usr/local/etc/redis/redis.conf
     volumes:
       - "sentry-redis:/data"
-      - "/data/project/onpremise/config/redis.conf:/usr/local/etc/redis/redis.conf"
+      - "./config/redis.conf:/usr/local/etc/redis/redis.conf"
     ulimits:
       nofile:
         soft: 10032
@@ -188,7 +188,7 @@ services:
       test: ["CMD-SHELL", "nc -z localhost 9092"]
   clickhouse:
     <<: *restart_policy
-    image: "altinity/clickhouse-server:21.8.12.29.armdev"
+    image: "mxlol/clickhouse:20.3.9.70"
     ulimits:
       nofile:
         soft: 262144
@@ -226,6 +226,7 @@ services:
       - "./geoip:/sentry"
   snuba-api:
     <<: *snuba_defaults
+    command: api
   # Kafka consumer responsible for feeding events into Clickhouse
   snuba-consumer:
     <<: *snuba_defaults
